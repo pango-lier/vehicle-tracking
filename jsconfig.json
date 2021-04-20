@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ],
+      "@core/*": [
+        "./src/@core/*"
+      ],
+      "@themeConfig": [
+        "./themeConfig.js"
+      ],
+      "@axios": [
+        "./src/libs/axios"
+      ],
+    }
+  }
+}

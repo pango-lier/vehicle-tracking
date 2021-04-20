@@ -1,0 +1,15 @@
+{
+  "recommendations": [
+    "octref.vetur",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "kavod-io.vscode-jest-test-adapter",
+    "editorconfig.editorconfig",
+    "vivaxy.vscode-conventional-commits",
+    "streetsidesoftware.code-spell-checker",
+    "buianhthang.gitflow",
+    "eamodio.gitlens",
+    "mhutchie.git-graph",
+    "codezombiech.gitignore"
+  ]
+}

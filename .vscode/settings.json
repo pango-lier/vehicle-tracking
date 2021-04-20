@@ -1,0 +1,53 @@
+{
+  "cSpell.allowCompoundWords": true,
+  "cSpell.ignorePaths": [
+    "package-lock.json",
+    "node_modules",
+    ".git/objects",
+    ".vscode",
+    "coverage",
+    "yarn.lock"
+  ],
+  "cSpell.language": "en",
+  "cSpell.words": [
+    "Helvetica",
+    "Neue",
+    "Roboto",
+    "Segoe",
+    "XSRF",
+    "casl",
+    "chartjs",
+    "csrf",
+    "echarts",
+    "flatpickr",
+    "halower",
+    "noopener",
+    "noreferrer",
+    "nuxt",
+    "nuxtjs",
+    "prismjs",
+    "rgba",
+    "swiper",
+    "toastification",
+    "vuedraggable",
+    "vuejs",
+    "vuepress",
+    "vuesax",
+    "vueuse",
+    "vuex",
+    "vuexy",
+    "xlink"
+  ],
+  "conventionalCommits.scopes": [
+    "configs",
+    "demo",
+    "ux",
+    "deps",
+    "env"
+  ],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+    "source.fixAll.stylelint": true
+  },
+  "conventionalCommits.gitmoji": false
+}
