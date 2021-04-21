@@ -1,43 +1,36 @@
 <template>
-  <div>
-    <b-card title="Kick start your project 🚀">
-      <b-card-text>All the best for your new project.</b-card-text>
-      <b-card-text
-        >Please make sure to read our
-        <b-link
-          href="https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/documentation/"
-          target="_blank"
-        >
-          Template Documentation
-        </b-link>
-        to understand where to go from here and how to use our
-        template.</b-card-text
-      >
-    </b-card>
-
-    <b-card title="Want to integrate JWT? 🔒">
-      <b-card-text
-        >We carefully crafted JWT flow so you can implement JWT with ease and
-        with minimum efforts.</b-card-text
-      >
-      <b-card-text
-        >Please read our JWT Documentation to get more out of JWT
-        authentication.</b-card-text
-      >
-    </b-card>
+  <div style="height: 500px">
+    <l-map
+      style="height: 80%; width: 100%"
+      :zoom="map.zoom"
+      :center="map.center"
+    >
+      <l-tile-layer :url="map.url"></l-tile-layer>
+    </l-map>
+    <l-marker :lat-lng="map.markerLatLng"></l-marker>
   </div>
 </template>
-
 <script>
-import { BCard, BCardText, BLink } from 'bootstrap-vue'
+import { ref } from '@vue/composition-api'
+import { LMap, LTileLayer, LMarker } from 'vue2-leaflet'
 
 export default {
+  name: 'Home',
   components: {
-    BCard,
-    BCardText,
-    BLink,
+    LMap,
+    LTileLayer,
+    LMarker,
+  },
+  setup() {
+    const map = ref({
+      url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+      zoom: 3,
+      center: [47.41322, -1.219482],
+      markerLatLng: [47.31322, -1.319482],
+      bounds: null,
+    })
+    return { map }
   },
 }
 </script>
-
 <style></style>
