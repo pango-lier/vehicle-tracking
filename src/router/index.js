@@ -2,8 +2,6 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import fonts from './routes/fonts'
 
-import templates from './routes/templates'
-
 Vue.use(VueRouter)
 
 const router = new VueRouter({
@@ -35,7 +33,6 @@ const router = new VueRouter({
         layout: 'full',
       },
     },
-    ...templates,
     ...fonts,
     {
       path: '/error-404',

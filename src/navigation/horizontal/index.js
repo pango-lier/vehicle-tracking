@@ -8,11 +8,6 @@ export default [
         route: 'home',
         icon: 'HomeIcon',
       },
-      {
-        title: 'Templates',
-        route: 'templates',
-        icon: 'LayersIcon',
-      },
     ],
   },
 ]
