@@ -29,12 +29,12 @@
         </b-form-group>
       </b-form>
       <div v-if="modalPopup.actions !== 'delete'">
-        <label for="Font-select">File </label>
+        <label for="Font-select">File</label>
         <b-form-file
           id="Font-select"
           v-model="fileFonts"
           type="file"
-          accept=".ttf,.otf,.eot,.woff,.woff2"
+          accept=".ttf, .otf, .eot, .woff, .woff2"
         />
       </div>
       <b-alert
@@ -66,8 +66,7 @@
           "
         >
           <div v-if="showLoadingEffect" class="d-flex">
-            <b-spinner small />
-            Loading . . . .
+            <b-spinner small />Loading . . . .
           </div>
           <div v-else class="d-flex">
             <feather-icon
@@ -104,6 +103,7 @@ import {
   BAlert,
   BFormFile,
   BSpinner,
+  BModal,
 } from 'bootstrap-vue'
 
 import Ripple from 'vue-ripple-directive'
@@ -121,9 +121,11 @@ export default {
     BButton,
     BFormFile,
     BSpinner,
+    BModal,
   },
   directives: {
     Ripple,
+    BModal,
   },
   props: {
     modalPopup: {

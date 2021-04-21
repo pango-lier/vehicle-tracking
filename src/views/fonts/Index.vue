@@ -43,7 +43,6 @@
               </b-input-group>
               <b-button
                 v-ripple.400="'rgba(113, 102, 240, 0.15)'"
-                v-b-modal.modal-prevent-closing
                 variant="primary "
                 class="d-flex"
                 @click="onNew()"
