@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import firebase from 'firebase/app'
 import fonts from './routes/fonts'
+
+import 'firebase/auth'
 
 Vue.use(VueRouter)
 
@@ -29,8 +32,20 @@ const router = new VueRouter({
       path: '/login',
       name: 'login',
       component: () => import('@/views/auth/Login.vue'),
+      meta: {},
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: () => import('@/views/auth/Register.vue'),
+      meta: {},
+    },
+    {
+      path: '/secret',
+      name: 'secret',
+      component: () => import('@/views/auth/Secret.vue'),
       meta: {
-        layout: 'full',
+        requiresAuth: true,
       },
     },
     ...fonts,
@@ -48,7 +63,15 @@ const router = new VueRouter({
     },
   ],
 })
-
+router.beforeEach((to, form, next) => {
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
+  const isAuthenticated = firebase.auth().currentUser
+  if (requiresAuth && !isAuthenticated) {
+    next('/login')
+  } else {
+    next()
+  }
+})
 // ? For splash screen
 // Remove afterEach hook if you are not using splash screen
 router.afterEach(() => {

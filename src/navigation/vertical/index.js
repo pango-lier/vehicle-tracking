@@ -9,4 +9,19 @@ export default [
     route: 'fonts',
     icon: 'BoldIcon',
   },
+  {
+    title: 'Login',
+    route: 'login',
+    icon: 'BoldIcon',
+  },
+  {
+    title: 'Register',
+    route: 'register',
+    icon: 'BoldIcon',
+  },
+  {
+    title: 'Secret',
+    route: 'secret',
+    icon: 'BoldIcon',
+  },
 ]

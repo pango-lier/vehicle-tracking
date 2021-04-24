@@ -28,6 +28,7 @@
     "chart.js": "2.9.4",
     "core-js": "3.8.1",
     "echarts": "4.8.0",
+    "firebase": "^8.4.2",
     "jsonwebtoken": "8.5.1",
     "leaflet": "^1.7.1",
     "portal-vue": "2.1.7",

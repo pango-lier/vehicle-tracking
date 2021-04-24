@@ -8,7 +8,7 @@
       <div class="email">
         <input v-model="password" type="password" placeholder="password" />
       </div>
-      <button type="submit">Login</button>
+      <button type="submit">Register</button>
     </form>
   </div>
 </template>
@@ -29,7 +29,7 @@ export default {
       try {
         const user = await firebase
           .auth()
-          .signInWithEmailAndPassword(this.email, this.password)
+          .createUserWithEmailAndPassword(this.email, this.password)
         console.log(user)
         this.$router.replace({ name: 'secret' })
       } catch (e) {
