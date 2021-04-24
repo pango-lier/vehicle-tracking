@@ -9,6 +9,7 @@ import './global-components'
 
 // 3rd party plugins
 import '@/libs/portal-vue'
+import 'leaflet/dist/leaflet.css'
 // import core styles
 require('@core/scss/core.scss')
 

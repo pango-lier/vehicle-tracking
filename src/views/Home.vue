@@ -9,6 +9,7 @@
         :color="circle.color"
       />
       <l-polygon :lat-lngs="polygon.latlngs" :color="polygon.color" />
+      <driver-moving />
     </l-map>
   </div>
 </template>
@@ -16,18 +17,17 @@
 <script>
 /* eslint-disable global-require */
 import { LMap, LTileLayer, LMarker, LCircle, LPolygon } from 'vue2-leaflet'
-import { Icon } from 'leaflet'
-import 'leaflet/dist/leaflet.css'
+import L from 'leaflet'
+import DriverMoving from './map/DriverMoving.vue'
 
 // eslint-disable-next-line no-underscore-dangle
-delete Icon.Default.prototype._getIconUrl
-Icon.Default.mergeOptions({
+delete L.Icon.Default.prototype._getIconUrl
+L.Icon.Default.mergeOptions({
   iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
   iconUrl: require('leaflet/dist/images/marker-icon.png'),
   shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
 })
 /* eslint-disable global-require */
-
 export default {
   components: {
     LMap,
@@ -35,6 +35,7 @@ export default {
     LMarker,
     LCircle,
     LPolygon,
+    DriverMoving,
   },
   data() {
     return {
@@ -72,6 +73,7 @@ export default {
         ],
         color: '#7367F0',
       },
+      initialLocation: L.latLng(48.8929425, 2.3821873),
     }
   },
 }

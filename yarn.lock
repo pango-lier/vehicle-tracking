@@ -6225,7 +6225,12 @@ launch-editor@^2.2.1:
     chalk "^2.3.0"
     shell-quote "^1.6.1"
 
-leaflet@^1.7.1:
+leaflet.marker.slideto@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/leaflet.marker.slideto/-/leaflet.marker.slideto-0.2.0.tgz#0191a7134c85ab57d1dd8efefc90abbe529888e9"
+  integrity sha1-AZGnE0yFq1fR3Y7+/JCrvlKYiOk=
+
+leaflet@^1.6.0, leaflet@^1.7.1:
   version "1.7.1"
   resolved "https://registry.yarnpkg.com/leaflet/-/leaflet-1.7.1.tgz#10d684916edfe1bf41d688a3b97127c0322a2a19"
   integrity sha512-/xwPEBidtg69Q3HlqPdU3DnrXQOvQU/CCHA1tcDQVzOwm91YMYaILjNp7L4Eaw5Z4sOYdbBz6koWyibppd8Zqw==
@@ -10575,12 +10580,22 @@ vue-tree-halower@1.8.3:
   dependencies:
     vue "^2.4.4"
 
-vue2-leaflet@^2.7.0:
+vue2-leaflet-movingmarker@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/vue2-leaflet-movingmarker/-/vue2-leaflet-movingmarker-1.1.0.tgz#d28b132638849542b9724ea151304dcbfe627f4c"
+  integrity sha512-txZASvZiD/ckHOF0mTeRpmMUwqkhZMlnW+ttHKjvmVv/sv8SoqyAzEmof0wXmIGFTo3StYaif5nbFX6ph0o68g==
+  dependencies:
+    leaflet "^1.6.0"
+    leaflet.marker.slideto "^0.2.0"
+    vue "^2.6.11"
+    vue2-leaflet "^2.5.2"
+
+vue2-leaflet@^2.5.2, vue2-leaflet@^2.7.0:
   version "2.7.0"
   resolved "https://registry.yarnpkg.com/vue2-leaflet/-/vue2-leaflet-2.7.0.tgz#e8a78671b8fa843ab19cfd93582bc166a05ec3ed"
   integrity sha512-uT7lpFoVEDhINMyTpiAthh6aiKFGHuYWLoVH8JJ0YNNSch+XMZFl4YBQ0S2hHYDquQIsh8zx+yINeUI01y9ugw==
 
-vue@2.6.12, vue@^2.2.1, vue@^2.4.4, vue@^2.6.10:
+vue@2.6.12, vue@^2.2.1, vue@^2.4.4, vue@^2.6.10, vue@^2.6.11:
   version "2.6.12"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.12.tgz#f5ebd4fa6bd2869403e29a896aed4904456c9123"
   integrity sha512-uhmLFETqPPNyuLLbsKz6ioJ4q7AZHzD8ZVFNATNyICSZouqP2Sz0rotWQC8UNBF6VGSCs5abnKJoStA6JbCbfg==
