@@ -5,23 +5,18 @@ export default [
     icon: 'HomeIcon',
   },
   {
-    title: 'Fonts',
-    route: 'fonts',
-    icon: 'BoldIcon',
+    title: 'settings',
+    route: 'settings',
+    icon: 'SettingsIcon',
   },
   {
-    title: 'Login',
-    route: 'login',
-    icon: 'BoldIcon',
+    title: 'Profile',
+    route: 'profile',
+    icon: 'UserIcon',
   },
   {
-    title: 'Register',
-    route: 'register',
-    icon: 'BoldIcon',
-  },
-  {
-    title: 'Secret',
-    route: 'secret',
-    icon: 'BoldIcon',
+    title: 'Logout',
+    route: 'logout',
+    icon: 'LogOutIcon',
   },
 ]
