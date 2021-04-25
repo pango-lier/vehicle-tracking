@@ -20,25 +20,40 @@ const router = new VueRouter({
       component: () => import('@/views/Home.vue'),
       meta: {
         pageTitle: 'Home',
-        breadcrumb: [
-          {
-            text: 'Home',
-            active: true,
-          },
-        ],
+        requiresAuth: true,
+      },
+    },
+    {
+      path: '/profile',
+      name: 'profile',
+      component: () => import('@/views/user/profile.vue'),
+      meta: {
+        requiresAuth: true,
       },
     },
     {
       path: '/login',
       name: 'login',
       component: () => import('@/views/auth/Login.vue'),
-      meta: {},
+      meta: {
+        layout: 'full',
+      },
     },
     {
       path: '/register',
-      name: 'register',
+      name: 'auth-register-v1',
       component: () => import('@/views/auth/Register.vue'),
-      meta: {},
+      meta: {
+        requiresAuth: true,
+      },
+    },
+    {
+      path: '/settings',
+      name: 'settings',
+      component: () => import('@/views/setting/Index.vue'),
+      meta: {
+        requiresAuth: true,
+      },
     },
     {
       path: '/secret',
@@ -47,6 +62,11 @@ const router = new VueRouter({
       meta: {
         requiresAuth: true,
       },
+    },
+    {
+      path: '/logout',
+      name: 'logout',
+      component: () => import('@/views/auth/Logout.vue'),
     },
     ...fonts,
     {
