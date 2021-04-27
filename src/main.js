@@ -1,6 +1,8 @@
 import Vue from 'vue'
 
 import firebase from 'firebase/app'
+import 'firebase/firestore'
+import 'firebase/database'
 import router from './router'
 import store from './store'
 import App from './App.vue'
@@ -32,9 +34,15 @@ const firebaseConfig = {
 }
 firebase.initializeApp(firebaseConfig)
 
+export const ft = firebase.firestore()
+export const db = firebase.database()
+
+export const driversRef = db.ref('drivers')
+export const settingsRef = db.ref('settings')
+
 let app
 firebase.auth().onAuthStateChanged(user => {
-  console.log(user)
+  console.log('sss', user)
   if (!app) {
     app = new Vue({
       router,

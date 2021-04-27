@@ -10,9 +10,9 @@
         </b-link>
 
         <b-card-title class="mb-1">Welcome to Anyprint! 👋</b-card-title>
-        <small v-if="fireBaseErrors.length" class="mb-2 text-danger">{{
-          fireBaseErrors[0]
-        }}</small>
+        <small v-if="fireBaseErrors.length" class="mb-2 text-danger">
+          {{ fireBaseErrors[0] }}
+        </small>
         <b-card-text v-else class="mb-2"
           >Please sign-in to your account and start the adventure</b-card-text
         >
@@ -41,14 +41,6 @@
 
             <!-- password -->
             <b-form-group>
-              <!--
-              <div class="d-flex justify-content-between">
-                <label for="password">Password</label>
-                <b-link :to="{ name: 'auth-forgot-password-v1' }">
-                  <small>Forgot Password?</small>
-                </b-link>
-              </div>
-              -->
               <validation-provider
                 #default="{ errors }"
                 name="Password"
@@ -107,6 +99,11 @@
       </b-card>
       <!-- /Login v1 -->
     </div>
+    <b-overlay
+      :show="effectLoadingSignIn"
+      spinner-variant="primary"
+      no-wrap
+    ></b-overlay>
   </div>
 </template>
 
@@ -124,6 +121,7 @@ import {
   BCardText,
   BInputGroup,
   BInputGroupAppend,
+  BOverlay,
   // BFormCheckbox,
 } from 'bootstrap-vue'
 
@@ -132,6 +130,7 @@ import { required, email } from '@validations'
 import { togglePasswordVisibility } from '@core/mixins/ui/forms'
 import firebase from 'firebase/app'
 import 'firebase/auth'
+import { ft } from '../../main'
 
 export default {
   components: {
@@ -147,6 +146,7 @@ export default {
     BCardText,
     BInputGroup,
     BInputGroupAppend,
+    BOverlay,
     // BFormCheckbox,
     ValidationProvider,
     ValidationObserver,
@@ -160,6 +160,7 @@ export default {
       required,
       email,
       fireBaseErrors: [],
+      effectLoadingSignIn: false,
     }
   },
   computed: {
@@ -170,13 +171,20 @@ export default {
   methods: {
     async onLogin() {
       try {
+        this.effectLoadingSignIn = true
         this.fireBaseErrors = []
-        await firebase
+        const authRef = await firebase
           .auth()
           .signInWithEmailAndPassword(this.userEmail, this.password)
+        await ft
+          .collection('users')
+          .doc(authRef.user.uid)
+          .set({ name: this.userEmail })
+        this.effectLoadingSignIn = false
         this.$router.replace({ name: 'home' })
       } catch (e) {
         this.fireBaseErrors.push(e.message)
+        this.effectLoadingSignIn = false
       }
     },
   },

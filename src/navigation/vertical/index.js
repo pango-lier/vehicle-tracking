@@ -5,7 +5,7 @@ export default [
     icon: 'HomeIcon',
   },
   {
-    title: 'settings',
+    title: 'Settings',
     route: 'settings',
     icon: 'SettingsIcon',
   },

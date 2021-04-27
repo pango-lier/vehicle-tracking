@@ -95,6 +95,7 @@ import {
   BInputGroupPrepend,
 } from 'bootstrap-vue'
 import Ripple from 'vue-ripple-directive'
+import store from '@/store'
 
 export default {
   components: {
@@ -110,6 +111,12 @@ export default {
   },
   directives: {
     Ripple,
+  },
+  mounted() {
+    store.commit('verticalMenu/UPDATE_VERTICAL_MENU_COLLAPSED', false)
+  },
+  destroyed() {
+    store.commit('verticalMenu/UPDATE_VERTICAL_MENU_COLLAPSED', true)
   },
 }
 </script>
