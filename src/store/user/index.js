@@ -1,4 +1,4 @@
-import axios from '@axios'
+import { fs } from '../../firebase'
 
 export default {
   name: 'users',
@@ -36,9 +36,19 @@ export default {
     },
   },
   actions: {
-    async fetch(commit, params) {
+    async fetch({ commit }) {
       try {
-        await axios.get(`/api/v1/fonts/?${params}`)
+        const users = []
+        await fs
+          .collection('users')
+          .get()
+          .then(querySnapshot => {
+            querySnapshot.forEach(doc => {
+              console.log(doc.id)
+              users.push({ id: doc.id, name: doc.data().name })
+            })
+            commit('FETCH', users)
+          })
       } catch (e) {
         throw e.message
       }

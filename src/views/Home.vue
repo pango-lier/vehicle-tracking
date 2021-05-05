@@ -19,7 +19,7 @@
 import { LMap, LTileLayer, LMarker, LCircle, LPolygon } from 'vue2-leaflet'
 import L from 'leaflet'
 import DriverMoving from './map/DriverMoving.vue'
-
+import { db, auth } from '../firebase'
 // eslint-disable-next-line no-underscore-dangle
 delete L.Icon.Default.prototype._getIconUrl
 L.Icon.Default.mergeOptions({
@@ -75,6 +75,16 @@ export default {
       },
       initialLocation: L.latLng(48.8929425, 2.3821873),
     }
+  },
+  mounted() {
+    const user = auth.currentUser
+
+    db.ref(`location/${user.uid}/geopoints`).on('child_added', snapshot => {
+      console.log(snapshot)
+      const data = snapshot.val()
+      console.log(data.latlngs)
+      this.markerLatLng = data.latlngs
+    })
   },
 }
 </script>

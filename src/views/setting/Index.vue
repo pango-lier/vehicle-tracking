@@ -78,33 +78,20 @@
 
             <!-- password -->
             <b-col cols="12">
-              <b-form-group label="Password" label-for="vi-password">
+              <b-form-group label="About me" label-for="vi-about">
                 <b-input-group class="input-group-merge">
                   <b-input-group-prepend is-text>
                     <feather-icon icon="LockIcon" />
                   </b-input-group-prepend>
                   <b-form-input
-                    id="vi-password"
+                    id="vi-about"
                     v-model="generals.about"
-                    type="password"
-                    placeholder="Password"
+                    type="text"
+                    placeholder="About me"
                   />
                 </b-input-group>
               </b-form-group>
             </b-col>
-
-            <!-- checkbox -->
-            <b-col cols="12">
-              <b-form-group>
-                <b-form-checkbox
-                  id="checkbox-4"
-                  name="checkbox-4"
-                  value="Remember_me"
-                  >Remember me</b-form-checkbox
-                >
-              </b-form-group>
-            </b-col>
-
             <!-- reset and submit -->
             <b-col cols="12">
               <b-button
@@ -116,9 +103,10 @@
               >
               <b-button
                 v-ripple.400="'rgba(186, 191, 199, 0.15)'"
-                type="reset"
+                type="button"
                 variant="outline-secondary"
-                >Reset</b-button
+                @click="geopoint"
+                >Random</b-button
               >
             </b-col>
           </b-row>
@@ -134,7 +122,6 @@ import {
   BCol,
   BFormGroup,
   BFormInput,
-  BFormCheckbox,
   BForm,
   BButton,
   BInputGroup,
@@ -144,7 +131,7 @@ import {
 } from 'bootstrap-vue'
 import Ripple from 'vue-ripple-directive'
 import store from '@/store'
-import { settingsRef } from '../../main'
+import { db, auth, fs, dbVal } from '../../firebase'
 
 export default {
   components: {
@@ -152,7 +139,6 @@ export default {
     BCol,
     BFormGroup,
     BFormInput,
-    BFormCheckbox,
     BInputGroup,
     BInputGroupPrepend,
     BForm,
@@ -199,9 +185,16 @@ export default {
         address: '',
         about: '',
       },
+      socialLinks: {
+        facebook: '',
+        zalo: '',
+        tiktok: '',
+      },
     }
   },
   mounted() {
+    this.getUsers()
+    this.getSetting()
     store.commit('verticalMenu/UPDATE_VERTICAL_MENU_COLLAPSED', false)
   },
   destroyed() {
@@ -212,7 +205,42 @@ export default {
       this.activeIcon = icon
     },
     saveSetting() {
-      settingsRef.push(this.generals)
+      const user = auth.currentUser
+      fs.collection('settings').doc(user.uid).set({
+        generals: this.generals,
+        'social-links': this.socialLinks,
+      })
+    },
+    geopoint() {
+      const lat = Math.random() * 10
+      const lng = Math.random() * 10
+
+      const user = auth.currentUser
+      db.ref(`location/${user.uid}/geopoints`)
+        .push()
+        .set({
+          latlngs: [lat, lng],
+          createdAt: dbVal.ServerValue.TIMESTAMP,
+        })
+    },
+    async getSetting() {
+      const user = auth.currentUser
+
+      const doc = await fs.collection('settings').doc(user.uid).get()
+      if (doc.exists) {
+        Object.assign(this.generals, doc.data().generals)
+      }
+    },
+    async getUsers() {
+      await fs
+        .collection('users')
+        .get()
+        .then(querySnapshot => {
+          querySnapshot.forEach(doc => {
+            console.log(doc.id, ' => ', doc.data())
+            console.log(doc.data())
+          })
+        })
     },
   },
 }
