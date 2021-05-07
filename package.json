@@ -58,6 +58,7 @@
     "vue-router": "3.4.9",
     "vue-select": "3.11.2",
     "vue-slider-component": "3.2.11",
+    "vue-swatches": "^2.1.1",
     "vue-sweetalert2": "4.1.1",
     "vue-toastification": "1.7.8",
     "vue-tour": "1.5.0",
