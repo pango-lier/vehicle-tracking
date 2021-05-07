@@ -1,4 +1,4 @@
-import { fs } from '../../firebase'
+import { fs, db } from '../../firebase'
 
 export default {
   name: 'users',
@@ -10,7 +10,8 @@ export default {
     avatar: 'assets/images/avatars/1.png',
     icon: 'assets/images/avatars/1.png',
     role: 'admin',
-    drives: [],
+    drivers: [],
+    first: false,
   },
   getters: {},
   mutations: {
@@ -19,6 +20,17 @@ export default {
     },
     FETCH(state, data) {
       state.list = [...data]
+    },
+    UPDATE_DRIVER(state, data) {
+      const driver = state.drivers.find(item => item.uid === data.uid)
+      if (driver === undefined) {
+        state.drivers.push(data)
+        return
+      }
+      driver.latlngs.push(data.markerLatLng)
+      Object.assign(driver, {
+        markerLatLng: data.markerLatLng,
+      })
     },
     CREATE(state, data) {
       state.list.unshift(data)
@@ -36,19 +48,24 @@ export default {
     },
   },
   actions: {
-    async fetch({ commit }) {
+    async getDriver({ commit }) {
       try {
-        const users = []
-        await fs
-          .collection('users')
-          .get()
-          .then(querySnapshot => {
-            querySnapshot.forEach(doc => {
-              console.log(doc.id)
-              users.push({ id: doc.id, name: doc.data().name })
+        const querySnapshot = await fs.collection('users').get()
+        querySnapshot.forEach(doc => {
+          const setting = doc.data()
+          db.ref(`location/${doc.id}/geopoints`).on('value', Snapshots => {
+            Snapshots.forEach(snapshot => {
+              const data = snapshot.val()
+              commit('UPDATE_DRIVER', {
+                uid: doc.id,
+                color: setting.generals.color,
+                name: setting.fullName,
+                markerLatLng: data.latlngs,
+                latlngs: [],
+              })
             })
-            commit('FETCH', users)
           })
+        })
       } catch (e) {
         throw e.message
       }

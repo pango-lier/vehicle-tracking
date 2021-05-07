@@ -1,12 +1,10 @@
 <template>
   <div>
     <l-moving-marker
-      v-for="drive in drivers"
-      :key="drive.uuid"
-      :lat-lng="drive.latLng"
+      :lat-lng="latlng"
       :duration="2000"
       :keep-at-center="false"
-      :icon="drive.icon"
+      :icon="icon"
     ></l-moving-marker>
   </div>
 </template>
@@ -19,31 +17,23 @@ export default {
   components: {
     LMovingMarker,
   },
+  props: {
+    latlng: {
+      type: Array,
+      default() {},
+    },
+  },
   setup() {
-    const drivers = ref([])
-    function rand(n) {
-      const max = n + 0.01
-      const min = n - 0.01
-      return Math.random() * (max - min) + min
-    }
-    function fetchDriver(key) {
-      const driver = {
-        icon: L.icon({
-          iconUrl: 'favicon.ico',
-          iconSize: [10, 15],
-          iconAnchor: [10.5, 31],
-          popupAnchor: [4, -25],
-        }),
-        latLng: L.latLng(rand(48.8929425), rand(2.3821873)),
-        uuid: key,
-      }
-      drivers.value.push(driver)
-    }
-    for (let i = 0; i < 5; i += 1) {
-      fetchDriver(i)
-    }
+    const icon = ref(
+      L.icon({
+        iconUrl: 'favicon.ico',
+        iconSize: [10, 15],
+        iconAnchor: [10.5, 31],
+        popupAnchor: [4, -25],
+      })
+    )
     return {
-      drivers,
+      icon,
     }
   },
 }

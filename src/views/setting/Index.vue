@@ -92,6 +92,13 @@
                 </b-input-group>
               </b-form-group>
             </b-col>
+            <b-col cols="12">
+              <b-form-group label="Please choose a color:" label-for="vi-color">
+                <div class="form__field">
+                  <v-swatches v-model="generals.color" inline></v-swatches>
+                </div>
+              </b-form-group>
+            </b-col>
             <!-- reset and submit -->
             <b-col cols="12">
               <b-button
@@ -131,7 +138,11 @@ import {
 } from 'bootstrap-vue'
 import Ripple from 'vue-ripple-directive'
 import store from '@/store'
+import VSwatches from 'vue-swatches'
 import { db, auth, fs, dbVal } from '../../firebase'
+
+// Import the styles too, typically in App.vue or main.js
+import 'vue-swatches/dist/vue-swatches.css'
 
 export default {
   components: {
@@ -145,6 +156,7 @@ export default {
     BButton,
     BNav,
     BNavItem,
+    VSwatches,
   },
   directives: {
     Ripple,
@@ -184,6 +196,7 @@ export default {
         phone: '',
         address: '',
         about: '',
+        color: '',
       },
       socialLinks: {
         facebook: '',
@@ -193,7 +206,6 @@ export default {
     }
   },
   mounted() {
-    this.getUsers()
     this.getSetting()
     store.commit('verticalMenu/UPDATE_VERTICAL_MENU_COLLAPSED', false)
   },
@@ -206,10 +218,11 @@ export default {
     },
     saveSetting() {
       const user = auth.currentUser
-      fs.collection('settings').doc(user.uid).set({
-        generals: this.generals,
-        'social-links': this.socialLinks,
-      })
+      fs.collection('users')
+        .doc(user.uid)
+        .collection('settings')
+        .doc('generals')
+        .set(this.generals)
     },
     geopoint() {
       const lat = Math.random() * 10
@@ -226,21 +239,12 @@ export default {
     async getSetting() {
       const user = auth.currentUser
 
-      const doc = await fs.collection('settings').doc(user.uid).get()
+      const doc = await fs.collection('users').doc(user.uid).get()
       if (doc.exists) {
+        console.log(doc)
+        console.log(doc.data())
         Object.assign(this.generals, doc.data().generals)
       }
-    },
-    async getUsers() {
-      await fs
-        .collection('users')
-        .get()
-        .then(querySnapshot => {
-          querySnapshot.forEach(doc => {
-            console.log(doc.id, ' => ', doc.data())
-            console.log(doc.data())
-          })
-        })
     },
   },
 }

@@ -107,8 +107,8 @@ import {
 import VuexyLogo from '@core/layouts/components/Logo.vue'
 import { required, email } from '@validations'
 import { togglePasswordVisibility } from '@core/mixins/ui/forms'
-import firebase from 'firebase/app'
-import 'firebase/auth'
+
+import { fs, auth } from '../../firebase'
 
 export default {
   components: {
@@ -147,10 +147,15 @@ export default {
     async signUp() {
       try {
         this.fireBaseErrors = []
-        await firebase
-          .auth()
-          .createUserWithEmailAndPassword(this.userEmail, this.password)
-        this.$router.replace({ name: 'login' })
+        const authRef = await auth.createUserWithEmailAndPassword(
+          this.userEmail,
+          this.password
+        )
+        await fs
+          .collection('users')
+          .doc(authRef.user.uid)
+          .set({ name: this.userEmail })
+        this.$router.replace({ name: 'login', role: ['driver'] })
       } catch (e) {
         this.fireBaseErrors.push(e.message)
       }

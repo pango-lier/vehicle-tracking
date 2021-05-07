@@ -10,9 +10,9 @@
         </b-link>
 
         <b-card-title class="mb-1">Welcome to Anyprint! 👋</b-card-title>
-        <small v-if="fireBaseErrors.length" class="mb-2 text-danger">{{
-          fireBaseErrors[0]
-        }}</small>
+        <small v-if="fireBaseErrors.length" class="mb-2 text-danger">
+          {{ fireBaseErrors[0] }}
+        </small>
         <b-card-text v-else class="mb-2"
           >Please sign-in to your account and start the adventure</b-card-text
         >
@@ -129,7 +129,7 @@ import VuexyLogo from '@core/layouts/components/Logo.vue'
 import { required, email } from '@validations'
 import { togglePasswordVisibility } from '@core/mixins/ui/forms'
 
-import { fs, auth } from '../../firebase'
+import { auth } from '../../firebase'
 
 export default {
   components: {
@@ -172,16 +172,8 @@ export default {
       try {
         this.effectLoadingSignIn = true
         this.fireBaseErrors = []
-        const authRef = await auth.signInWithEmailAndPassword(
-          this.userEmail,
-          this.password
-        )
-        await fs
-          .collection('users')
-          .doc(authRef.user.uid)
-          .set({ name: this.userEmail })
-        this.effectLoadingSignIn = false
-        this.$router.replace({ name: 'home' })
+        await auth.signInWithEmailAndPassword(this.userEmail, this.password)
+        this.$router.replace({ name: 'home', role: 'driver' })
       } catch (e) {
         this.fireBaseErrors.push(e.message)
         this.effectLoadingSignIn = false
