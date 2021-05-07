@@ -1,4 +1,6 @@
 import Vue from 'vue'
+import { ToastPlugin, ModalPlugin } from 'bootstrap-vue'
+import VueCompositionAPI from '@vue/composition-api'
 
 import { auth } from './firebase'
 
@@ -14,7 +16,11 @@ import '@/libs/portal-vue'
 import 'leaflet/dist/leaflet.css'
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+Vue.use(ToastPlugin)
+Vue.use(ModalPlugin)
 
+// Composition API
+Vue.use(VueCompositionAPI)
 // import core styles
 require('@core/scss/core.scss')
 
