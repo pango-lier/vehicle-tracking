@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 
 // Modules
 import users from './user'
-import drivers from './driver'
+import driver from './driver'
 import app from './app'
 import appConfig from './app-config'
 import verticalMenu from './vertical-menu'
@@ -16,7 +16,7 @@ export default new Vuex.Store({
     appConfig,
     verticalMenu,
     users,
-    drivers,
+    driver,
   },
   strict: process.env.DEV,
 })

@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import firebase from 'firebase/app'
-import fonts from './routes/fonts'
+import driver from './routes/driver'
 
 import 'firebase/auth'
 
@@ -68,7 +68,7 @@ const router = new VueRouter({
       name: 'logout',
       component: () => import('@/views/auth/Logout.vue'),
     },
-    ...fonts,
+    ...driver,
     {
       path: '/error-404',
       name: 'error-404',

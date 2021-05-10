@@ -5,6 +5,11 @@ export default [
     icon: 'HomeIcon',
   },
   {
+    title: 'Driver',
+    route: 'driver',
+    icon: 'UserIcon',
+  },
+  {
     title: 'Settings',
     route: 'settings',
     icon: 'SettingsIcon',
