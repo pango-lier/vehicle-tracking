@@ -19,7 +19,7 @@
 
         <!-- form -->
         <validation-observer ref="loginForm" #default="{ invalid }">
-          <b-form class="auth-login-form mt-2" @submit.prevent="onLogin">
+          <b-form class="auth-login-form mt-2" @submit.prevent="signUp">
             <!-- email -->
             <b-form-group label-for="email" label="Email">
               <validation-provider

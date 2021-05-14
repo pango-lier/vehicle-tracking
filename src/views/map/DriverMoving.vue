@@ -4,7 +4,7 @@
       :lat-lng="latlng"
       :duration="2000"
       :keep-at-center="false"
-      :icon="icon"
+      :icon="iconRef"
     ></l-moving-marker>
   </div>
 </template>
@@ -22,18 +22,22 @@ export default {
       type: Array,
       default() {},
     },
+    icon: {
+      type: String,
+      default: 'favicon.ico',
+    },
   },
-  setup() {
-    const icon = ref(
+  setup(props) {
+    const iconRef = ref(
       L.icon({
-        iconUrl: 'favicon.ico',
+        iconUrl: props.icon,
         iconSize: [10, 15],
         iconAnchor: [10.5, 31],
         popupAnchor: [4, -25],
       })
     )
     return {
-      icon,
+      iconRef,
     }
   },
 }

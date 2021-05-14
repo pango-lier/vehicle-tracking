@@ -43,9 +43,6 @@ const router = new VueRouter({
       path: '/register',
       name: 'auth-register-v1',
       component: () => import('@/views/auth/Register.vue'),
-      meta: {
-        requiresAuth: true,
-      },
     },
     {
       path: '/settings',

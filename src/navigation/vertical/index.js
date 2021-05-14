@@ -7,7 +7,7 @@ export default [
   {
     title: 'Driver',
     route: 'driver',
-    icon: 'UserIcon',
+    icon: 'UsersIcon',
   },
   {
     title: 'Settings',

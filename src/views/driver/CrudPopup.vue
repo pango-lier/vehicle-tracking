@@ -100,16 +100,20 @@
               </div>
             </b-form-group>
             <b-form-group>
-              <img :src="itemData.markerIconStart" alt="Station" /><span
-                class="ml-1"
-                >Station icon</span
-              >
+              <img
+                :src="itemData.markerIconStart"
+                alt="Station"
+                style="cursor: pointer"
+                @click="pickerMarkerIconStart"
+              /><span class="ml-1">Station icon</span>
             </b-form-group>
             <b-form-group>
-              <img :src="itemData.markerIconEnd" alt="Station" /><span
-                class="ml-1"
-                >My icon</span
-              >
+              <img
+                :src="itemData.markerIconEnd"
+                alt="Station"
+                style="cursor: pointer"
+                @click="pickerMarkerIconEnd"
+              /><span class="ml-1">My icon</span>
               currrent
             </b-form-group>
             <b-form-group>
@@ -163,6 +167,7 @@
         </b-button>
       </div>
     </b-modal>
+    <icon-picker :modal="modalIconPicker" />
   </div>
 </template>
 <script>
@@ -188,6 +193,7 @@ import VSwatches from 'vue-swatches'
 import 'vue-swatches/dist/vue-swatches.css'
 import store from '@/store'
 import { auth } from '../../firebase'
+import IconPicker from './IconPicker.vue'
 
 export default {
   components: {
@@ -203,6 +209,7 @@ export default {
     BAlert,
     VSwatches,
     BFormCheckbox,
+    IconPicker,
   },
   directives: {
     Ripple,
@@ -233,12 +240,35 @@ export default {
       errors.value = []
       context.emit('on-close')
     }
-
+    const iconStarts = ref([])
+    const iconEnds = ref([])
+    const modalIconPicker = ref({
+      popup: false,
+      acctions: 'icon-start',
+    })
+    const pickerMarkerIconStart = () => {
+      modalIconPicker.value.popup = true
+      modalIconPicker.value.acctions = 'icon-start'
+    }
+    const pickerMarkerIconEnd = () => {
+      modalIconPicker.value.popup = true
+      modalIconPicker.value.acctions = 'icon-end'
+    }
+    const onCloseIconPicker = () => {
+      modalIconPicker.value.popup = false
+    }
     return {
       onClose,
       enableButton,
       errors,
       driverCustomeKey,
+
+      pickerMarkerIconStart,
+      pickerMarkerIconEnd,
+      onCloseIconPicker,
+      iconStarts,
+      iconEnds,
+      modalIconPicker,
     }
   },
   methods: {
