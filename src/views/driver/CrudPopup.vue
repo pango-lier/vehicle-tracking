@@ -167,7 +167,12 @@
         </b-button>
       </div>
     </b-modal>
-    <icon-picker :modal="modalIconPicker" />
+    <icon-picker
+      v-if="modalIconPicker.popup"
+      :modal="modalIconPicker"
+      @on-select-icon="selecedIconPicker"
+      @on-close="onCloseIconPicker"
+    />
   </div>
 </template>
 <script>
@@ -240,8 +245,6 @@ export default {
       errors.value = []
       context.emit('on-close')
     }
-    const iconStarts = ref([])
-    const iconEnds = ref([])
     const modalIconPicker = ref({
       popup: false,
       acctions: 'icon-start',
@@ -266,8 +269,6 @@ export default {
       pickerMarkerIconStart,
       pickerMarkerIconEnd,
       onCloseIconPicker,
-      iconStarts,
-      iconEnds,
       modalIconPicker,
     }
   },
@@ -293,6 +294,14 @@ export default {
       } catch (e) {
         this.errors.push(e)
       }
+    },
+    selecedIconPicker(e) {
+      if (e.acctions === 'icon-start') {
+        this.$set(this.itemData, 'markerIconStart', e.icon)
+      } else {
+        this.$set(this.itemData, 'markerIconEnd', e.icon)
+      }
+      this.onCloseIconPicker()
     },
     async onDelete() {
       try {
