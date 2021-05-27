@@ -7,6 +7,7 @@ export default {
     list: {
       start32x32: [],
       end32x32: [],
+      avatar32x32: '',
     },
     totalRows: 100,
     first: true,
@@ -47,6 +48,9 @@ export default {
     DELETE(state, data) {
       state.list = state.list.filter(item => item.id !== data.id)
       state.totalRows -= 1
+    },
+    UPDATE_AVATAR(state, data) {
+      state.list.avatar32x32 = data
     },
     FIRST(state, data) {
       state.first = data

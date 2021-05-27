@@ -104,7 +104,7 @@
                 :src="itemData.markerIconStart"
                 alt="Station"
                 style="cursor: pointer"
-                @click="pickerMarkerIconStart"
+                @click.stop="pickerMarkerIconStart"
               /><span class="ml-1">Station icon</span>
             </b-form-group>
             <b-form-group>
@@ -112,7 +112,7 @@
                 :src="itemData.markerIconEnd"
                 alt="Station"
                 style="cursor: pointer"
-                @click="pickerMarkerIconEnd"
+                @click.stop="pickerMarkerIconEnd"
               /><span class="ml-1">My icon</span>
               currrent
             </b-form-group>
@@ -121,10 +121,21 @@
               Active tracking
             </b-form-group>
             <b-form-group>
-              <b-form-checkbox switch inline />
+              <b-form-checkbox v-model="itemData.showName" switch inline />
               Warning
             </b-form-group>
+            <b-form-group>
+              <b-form-checkbox v-model="itemData.warning" switch inline />
+              Show name
+            </b-form-group>
           </b-form>
+        </b-col>
+        <b-col md="12">
+          <b-form-textarea
+            v-model="itemData.infor"
+            placeholder="Informatiion driver detail"
+            rows="2"
+          />
         </b-col>
       </b-row>
       <div>
@@ -170,6 +181,7 @@
     <icon-picker
       v-if="modalIconPicker.popup"
       :modal="modalIconPicker"
+      :have-avatar="modalIconPicker.acctions == 'icon-end'"
       @on-select-icon="selecedIconPicker"
       @on-close="onCloseIconPicker"
     />
@@ -188,6 +200,7 @@ import {
   BCol,
   BAlert,
   BFormCheckbox,
+  BFormTextarea,
 } from 'bootstrap-vue'
 
 import Ripple from 'vue-ripple-directive'
@@ -215,6 +228,7 @@ export default {
     VSwatches,
     BFormCheckbox,
     IconPicker,
+    BFormTextarea,
   },
   directives: {
     Ripple,
