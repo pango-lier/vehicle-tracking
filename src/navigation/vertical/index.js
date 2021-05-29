@@ -15,9 +15,9 @@ export default [
     icon: 'SettingsIcon',
   },
   {
-    title: 'Profile',
-    route: 'profile',
-    icon: 'UserIcon',
+    title: 'Contact',
+    route: 'contact',
+    icon: 'PhoneCallIcon',
   },
   {
     title: 'Logout',

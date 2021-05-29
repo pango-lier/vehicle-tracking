@@ -24,9 +24,9 @@ const router = new VueRouter({
       },
     },
     {
-      path: '/profile',
-      name: 'profile',
-      component: () => import('@/views/user/profile.vue'),
+      path: '/contact',
+      name: 'contact',
+      component: () => import('@/views/user/Contact.vue'),
       meta: {
         requiresAuth: true,
       },

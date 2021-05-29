@@ -129,7 +129,7 @@ export default {
 <style lang="scss">
 .vue2leaflet-map {
   &.leaflet-container {
-    height: 800px;
+    height: 900px;
   }
 }
 </style>
