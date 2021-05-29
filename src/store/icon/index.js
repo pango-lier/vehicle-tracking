@@ -62,7 +62,6 @@ export default {
         try {
           const doc = await fs.collection('icons').doc('marker').get()
           const data = doc.data()
-          console.log(data)
           commit('FETCH', data)
           commit('FIRST', false)
         } catch (e) {
@@ -70,10 +69,9 @@ export default {
         }
       }
     },
-    async create({ commit }, payload) {
+    async update(ctx, payload) {
       try {
-        await fs.collection('icons').doc('icon32x32').set(payload)
-        commit('FETCH', payload)
+        await fs.collection('icons').doc('marker').set(payload)
       } catch (e) {
         throw e.message
       }

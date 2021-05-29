@@ -47,7 +47,7 @@
                 @click="onNew()"
               >
                 <feather-icon icon="PlusIcon" class="mr-50" />
-                <span class="text-nowrap align-middle">New Fonts</span>
+                <span class="text-nowrap align-middle">New Driver</span>
               </b-button>
             </div>
           </b-col>
@@ -90,6 +90,7 @@
         </template>
         <template #cell(actions)="row">
           <feather-icon
+            v-if="false"
             icon="EditIcon"
             size="18"
             class="cursor-pointer mx-50"
@@ -206,7 +207,7 @@ export default {
     ]
     const sortBy = ref('id')
     const sortDesc = ref(true)
-    const perPage = ref(10)
+    const perPage = ref(50)
     const currentPage = ref(1)
     const perPageOptions = [10, 25, 50, 100]
     const searchQuery = ref('')

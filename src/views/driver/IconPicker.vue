@@ -150,6 +150,8 @@ export default {
     watch(file, () => {
       if (file.value != null) {
         handleFiles()
+        onClickAvatar()
+        store.dispatch('icon/UPDATE', store.state.icons.list)
       }
     })
     return {
@@ -164,7 +166,7 @@ export default {
   },
   methods: {
     onUpdateAvatar() {
-      console.log(this.$refs.fileInputAvatar.click())
+      this.$refs.fileInputAvatar.click()
     },
     getFileAvatar(e) {
       for (let i = 0; i < 1; i += 1) {

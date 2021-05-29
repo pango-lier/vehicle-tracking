@@ -304,10 +304,10 @@ export default {
           this.itemData.driverCustomeKey = true
         }
         await store.dispatch('driver/generateDriver', this.itemData)
-        this.onClose()
       } catch (e) {
         this.errors.push(e)
       }
+      this.onClose()
     },
     selecedIconPicker(e) {
       if (e.acctions === 'icon-start') {
@@ -320,19 +320,19 @@ export default {
     async onDelete() {
       try {
         await store.dispatch('driver/delete', this.itemData.id)
-        this.onClose()
       } catch (e) {
         this.errors.push(e)
       }
+      this.onClose()
     },
     async onUpdate() {
       try {
         console.log(this.itemData.marker.iconStart)
         await store.dispatch('driver/update', this.itemData)
-        this.onClose()
       } catch (e) {
         this.errors.push(e)
       }
+      this.onClose()
     },
   },
 }
