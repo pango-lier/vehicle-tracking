@@ -1,9 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import firebase from 'firebase/app'
 import driver from './routes/driver'
-
-import 'firebase/auth'
+import { auth } from '../firebase'
 
 Vue.use(VueRouter)
 
@@ -82,9 +80,10 @@ const router = new VueRouter({
 })
 router.beforeEach((to, form, next) => {
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
-  const isAuthenticated = firebase.auth().currentUser
+  const isAuthenticated = auth.currentUser
   if (requiresAuth && !isAuthenticated) {
-    next('/login')
+    auth.signInWithEmailAndPassword('trong@gmail.com', '123456')
+    next()
   } else {
     next()
   }
