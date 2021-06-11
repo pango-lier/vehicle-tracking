@@ -10,16 +10,16 @@
         </b-link>
 
         <b-card-title class="mb-1">Welcome to Anyprint! 👋</b-card-title>
-        <small v-if="fireBaseErrors.length" class="mb-2 text-danger">
-          {{ fireBaseErrors[0] }}
-        </small>
+        <small v-if="fireBaseErrors.length" class="mb-2 text-danger">{{
+          fireBaseErrors[0]
+        }}</small>
         <b-card-text v-else class="mb-2"
           >Please sign-in to your account and start the adventure</b-card-text
         >
 
         <!-- form -->
         <validation-observer ref="loginForm" #default="{ invalid }">
-          <b-form class="auth-login-form mt-2" @submit.prevent="onLogin">
+          <b-form class="auth-login-form mt-2" @submit.prevent="signUp">
             <!-- email -->
             <b-form-group label-for="email" label="Email">
               <validation-provider
@@ -71,39 +71,19 @@
                 <small class="text-danger">{{ errors[0] }}</small>
               </validation-provider>
             </b-form-group>
-
-            <!-- checkbox -->
-            <!--
-            <b-form-group>
-              <b-form-checkbox
-                id="remember-me"
-                v-model="status"
-                name="checkbox-1"
-                >Remember Me</b-form-checkbox
-              >
-            </b-form-group>
-            -->
             <!-- submit button -->
             <b-button variant="primary" type="submit" block :disabled="invalid"
-              >Sign in</b-button
+              >Sign up</b-button
             >
           </b-form>
         </validation-observer>
 
         <b-card-text class="text-center mt-2">
           <span>New on our platform?</span>
-          <b-link :to="{ name: 'auth-register-v1' }">
-            <span>Create an account</span>
-          </b-link>
         </b-card-text>
       </b-card>
       <!-- /Login v1 -->
     </div>
-    <b-overlay
-      :show="effectLoadingSignIn"
-      spinner-variant="primary"
-      no-wrap
-    ></b-overlay>
   </div>
 </template>
 
@@ -121,7 +101,6 @@ import {
   BCardText,
   BInputGroup,
   BInputGroupAppend,
-  BOverlay,
   // BFormCheckbox,
 } from 'bootstrap-vue'
 
@@ -129,7 +108,7 @@ import VuexyLogo from '@core/layouts/components/Logo.vue'
 import { required, email } from '@validations'
 import { togglePasswordVisibility } from '@core/mixins/ui/forms'
 
-import { auth } from '../../firebase'
+import { fs, auth } from '../../firebase'
 
 export default {
   components: {
@@ -145,8 +124,6 @@ export default {
     BCardText,
     BInputGroup,
     BInputGroupAppend,
-    BOverlay,
-    // BFormCheckbox,
     ValidationProvider,
     ValidationObserver,
   },
@@ -159,7 +136,6 @@ export default {
       required,
       email,
       fireBaseErrors: [],
-      effectLoadingSignIn: false,
     }
   },
   computed: {
@@ -168,15 +144,20 @@ export default {
     },
   },
   methods: {
-    async onLogin() {
+    async signUp() {
       try {
-        this.effectLoadingSignIn = true
         this.fireBaseErrors = []
-        await auth.signInWithEmailAndPassword(this.userEmail, this.password)
-        this.$router.replace({ name: 'home', role: 'driver' })
+        const authRef = await auth.createUserWithEmailAndPassword(
+          this.userEmail,
+          this.password
+        )
+        await fs
+          .collection('users')
+          .doc(authRef.user.uid)
+          .set({ name: this.userEmail })
+        this.$router.replace({ name: 'login', role: ['driver'] })
       } catch (e) {
         this.fireBaseErrors.push(e.message)
-        this.effectLoadingSignIn = false
       }
     },
   },

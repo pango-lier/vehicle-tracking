@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import fonts from './routes/fonts'
+import driver from './routes/driver'
+import { auth } from '../firebase'
 
 Vue.use(VueRouter)
 
@@ -17,12 +18,15 @@ const router = new VueRouter({
       component: () => import('@/views/Home.vue'),
       meta: {
         pageTitle: 'Home',
-        breadcrumb: [
-          {
-            text: 'Home',
-            active: true,
-          },
-        ],
+        requiresAuth: true,
+      },
+    },
+    {
+      path: '/contact',
+      name: 'contact',
+      component: () => import('@/views/user/Contact.vue'),
+      meta: {
+        requiresAuth: true,
       },
     },
     {
@@ -33,7 +37,33 @@ const router = new VueRouter({
         layout: 'full',
       },
     },
-    ...fonts,
+    {
+      path: '/register',
+      name: 'auth-register-v1',
+      component: () => import('@/views/auth/Register.vue'),
+    },
+    {
+      path: '/settings',
+      name: 'settings',
+      component: () => import('@/views/setting/Index.vue'),
+      meta: {
+        requiresAuth: true,
+      },
+    },
+    {
+      path: '/secret',
+      name: 'secret',
+      component: () => import('@/views/auth/Secret.vue'),
+      meta: {
+        requiresAuth: true,
+      },
+    },
+    {
+      path: '/logout',
+      name: 'logout',
+      component: () => import('@/views/auth/Logout.vue'),
+    },
+    ...driver,
     {
       path: '/error-404',
       name: 'error-404',
@@ -48,7 +78,16 @@ const router = new VueRouter({
     },
   ],
 })
-
+router.beforeEach((to, form, next) => {
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
+  const isAuthenticated = auth.currentUser
+  if (requiresAuth && !isAuthenticated) {
+    auth.signInWithEmailAndPassword('trong@gmail.com', '123456')
+    next()
+  } else {
+    next()
+  }
+})
 // ? For splash screen
 // Remove afterEach hook if you are not using splash screen
 router.afterEach(() => {

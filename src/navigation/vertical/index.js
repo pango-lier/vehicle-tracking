@@ -5,8 +5,23 @@ export default [
     icon: 'HomeIcon',
   },
   {
-    title: 'Fonts',
-    route: 'fonts',
-    icon: 'BoldIcon',
+    title: 'Driver',
+    route: 'driver',
+    icon: 'UsersIcon',
+  },
+  {
+    title: 'Settings',
+    route: 'settings',
+    icon: 'SettingsIcon',
+  },
+  {
+    title: 'Contact',
+    route: 'contact',
+    icon: 'PhoneCallIcon',
+  },
+  {
+    title: 'Logout',
+    route: 'logout',
+    icon: 'LogOutIcon',
   },
 ]

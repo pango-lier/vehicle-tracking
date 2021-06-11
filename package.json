@@ -28,6 +28,7 @@
     "chart.js": "2.9.4",
     "core-js": "3.8.1",
     "echarts": "4.8.0",
+    "firebase": "^8.4.2",
     "jsonwebtoken": "8.5.1",
     "leaflet": "^1.7.1",
     "portal-vue": "2.1.7",
@@ -57,13 +58,16 @@
     "vue-router": "3.4.9",
     "vue-select": "3.11.2",
     "vue-slider-component": "3.2.11",
+    "vue-swatches": "^2.1.1",
     "vue-sweetalert2": "4.1.1",
     "vue-toastification": "1.7.8",
     "vue-tour": "1.5.0",
     "vue-tree-halower": "1.8.3",
     "vue2-leaflet": "^2.7.0",
+    "vue2-leaflet-movingmarker": "^1.1.0",
     "vuedraggable": "2.24.3",
-    "vuex": "3.6.0"
+    "vuex": "3.6.0",
+    "vuexfire": "^3.2.5"
   },
   "devDependencies": {
     "@commitlint/cli": "^12.0.1",
