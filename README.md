@@ -3,6 +3,10 @@ https://vehicle-tracking-5946a.web.app/
 
 #Email
 kinhdoanh11.bt@gmail.com
+# Description
+- Follow tracking multi device GPS
+- Realtime update Geo
+- Setup on your firebase
 
 ## Vuejs
 ### FireBasejs
