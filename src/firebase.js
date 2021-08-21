@@ -4,14 +4,15 @@ import 'firebase/database'
 import 'firebase/firebase-auth'
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyB8qk-4GRWZz6bQggeOCSnW01H1XWtfzC8',
-  authDomain: 'vehicle-tracking-5946a.firebaseapp.com',
-  projectId: 'vehicle-tracking-5946a',
-  storageBucket: 'vehicle-tracking-5946a.appspot.com',
-  messagingSenderId: '472702586901',
-  appId: '1:472702586901:web:c1eb56d3018d2311f5be1c',
-  measurementId: 'G-7HKJZ77XHH',
+  apiKey: `${process.env.VUE_APP_FIREBASE_API_KEY}`,
+  authDomain: `${process.env.VUE_APP_FIREBASE_AUTH_DOMAIN}`,
+  projectId: `${process.env.VUE_APP_FIREBASE_PROJECT_ID}`,
+  storageBucket: `${process.env.VUE_APP_FIREBASE_STORAGE_BUCKET}`,
+  messagingSenderId: `${process.env.VUE_APP_FIREBASE_MESSAGING_SENDER_ID}`,
+  appId: `${process.env.VUE_APP_FIREBASE_APP_ID}`,
+  measurementId: `${process.env.VUE_APP_FIREBASE_MEASUREMENT_ID}`,
 }
+
 const fb = firebase.initializeApp(firebaseConfig)
 
 const fs = fb.firestore()
